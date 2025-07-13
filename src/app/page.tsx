@@ -47,14 +47,20 @@ export default function Home() {
     <main>
       {/* ================= HERO =====================*/}
       <section className="min-h-[calc(100vh-64px)] flex items-center justify-center text-center px-4 relative overflow-hidden">
-        <div className="max-w-xl mx-auto relative z-10 text-white drop-shadow-md">
-          <h1 className="text-3xl sm:text-5xl font-bold mb-4">Felipe Henríquez</h1>
-          <h2 className="text-xl sm:text-2xl mb-6">Desarrollador Full Stack</h2>
-          <p className="text-base sm:text-lg leading-relaxed">
-            Bienvenido a mi portafolio profesional. Aquí encontrarás un resumen de mis habilidades, formación, experiencia y proyectos destacados.
+        <div className="max-w-xl mx-auto relative z-10">
+          <h1 className="text-3xl sm:text-5xl font-bold mb-4 text-black dark:text-white">
+            Felipe Henríquez
+          </h1>
+          <h2 className="text-xl sm:text-2xl mb-6 text-gray-700 dark:text-gray-300">
+            Desarrollador Full Stack
+          </h2>
+          <p className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-400">
+            Bienvenido a mi portafolio profesional. Aquí encontrarás un resumen de mis habilidades,
+            formación, experiencia y proyectos destacados.
           </p>
         </div>
       </section>
+
 
       <section className="bg-white dark:bg-gray-950 py-12 px-4 sm:px-6 lg:px-8">
         <FadeIn delay={0.1}>
