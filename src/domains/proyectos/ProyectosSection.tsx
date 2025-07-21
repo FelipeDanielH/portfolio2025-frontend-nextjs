@@ -6,55 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ExternalLink, Github } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { useProjectsContext } from "@/hooks/ProjectsContext";
-
-function ProjectCard({ project, index }: { project: import("@/domains/types").Project; index: number }) {
-  return (
-    <ScrollReveal key={index} delay={index * 150}>
-      <Card className="glass border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-              {project.name}
-            </CardTitle>
-            <Github className="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
-          </div>
-          <CardDescription className="text-gray-600 dark:text-gray-400 leading-relaxed">
-            {project.description}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map((tech) => (
-              <Badge
-                key={tech}
-                variant="outline"
-                className="border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300"
-              >
-                {tech}
-              </Badge>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {project.links.map((link, linkIndex) => (
-              <Button
-                key={linkIndex}
-                variant="outline"
-                size="sm"
-                asChild
-                className="hover:bg-blue-50 dark:hover:bg-blue-950/50 bg-transparent"
-              >
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="w-3 h-3 mr-1" />
-                  {link.label}
-                </a>
-              </Button>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    </ScrollReveal>
-  );
-}
+import { ProjectCard } from "./ProjectCard";
 
 export function ProyectosSection() {
   const { data: projects, loading, error } = useProjectsContext();
