@@ -1,11 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { Sparkles } from "lucide-react";
-import { getAbout } from "@/infrastructure/services/aboutService";
-import { getAboutUseCase } from "@/application/about/getAboutUseCase";
 
-export function SobreMiSection() {
-  const about = getAboutUseCase(getAbout);
+export function SobreMiSection({ about }: { about: string }) {
   return (
     <section id="about" className="py-20 px-6">
       <div className="max-w-4xl mx-auto">
@@ -17,7 +14,7 @@ export function SobreMiSection() {
         </ScrollReveal>
 
         <ScrollReveal delay={200}>
-          <Card className="glass border-0 shadow-2xl">
+          <Card className="glass shadow-2xl">
             <CardContent className="p-8">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0">

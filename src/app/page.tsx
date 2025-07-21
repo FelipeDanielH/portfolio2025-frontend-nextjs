@@ -22,10 +22,12 @@ import { HabilidadesSection } from '@/domains/habilidades/HabilidadesSection'
 import { ProyectosSection } from '@/domains/proyectos/ProyectosSection'
 import { ExperienciaSection } from '@/domains/experiencia/ExperienciaSection'
 import { FormacionSection } from '@/domains/formacion/FormacionSection'
-import dynamic from "next/dynamic";
-const SobreMiSection = dynamic(() => import("@/domains/sobre-mi/SobreMiSection").then(mod => ({ default: mod.SobreMiSection })), { ssr: false });
+import { getAbout } from "@/infrastructure/services/aboutService";
+import { getAboutUseCase } from "@/application/about/getAboutUseCase";
+import { SobreMiSection } from "@/domains/sobre-mi/SobreMiSection";
 
-export default function Portfolio() {
+export default async function Portfolio() {
+  const about = await getAboutUseCase(getAbout);
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-gray-900 dark:via-blue-950/50 dark:to-black">
       {/* Hero Section */}
@@ -87,7 +89,7 @@ export default function Portfolio() {
       </section>
 
       <main className="relative z-10">
-        <SobreMiSection />
+        <SobreMiSection about={about} />
         <HabilidadesSection />
         <ExperienciaSection />
         <ProyectosSection />
