@@ -22,7 +22,8 @@ import { HabilidadesSection } from '@/domains/habilidades/HabilidadesSection'
 import { ProyectosSection } from '@/domains/proyectos/ProyectosSection'
 import { ExperienciaSection } from '@/domains/experiencia/ExperienciaSection'
 import { FormacionSection } from '@/domains/formacion/FormacionSection'
-import { SobreMiSection } from '@/domains/sobre-mi/SobreMiSection'
+import dynamic from "next/dynamic";
+const SobreMiSection = dynamic(() => import("@/domains/sobre-mi/SobreMiSection").then(mod => ({ default: mod.SobreMiSection })), { ssr: false });
 
 export default function Portfolio() {
   return (
