@@ -19,3 +19,16 @@ export function generateSlug(text: string): string {
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "")
 }
+
+export function getSkillCategoryLabel(category: string): string {
+  switch (category) {
+    case "others":
+      return "Otros";
+    case "languages":
+      return "Lenguajes";
+    case "databases":
+      return "Bases de Datos";
+    default:
+      return category.charAt(0).toUpperCase() + category.slice(1);
+  }
+}

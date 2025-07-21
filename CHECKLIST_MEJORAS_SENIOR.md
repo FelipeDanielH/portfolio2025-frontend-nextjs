@@ -6,7 +6,7 @@
 - [x] Usar Context para estado global compartido (usuario, skills, proyectos).
 - [x] Envolver la app con Providers de Contexto para estado global (ej: usuario, proyectos, skills).
 - [x] Preparar la arquitectura para consumir datos de APIs y no solo archivos locales.
-- [ ] Modularizar componentes UI y lógica de negocio.
+- [x] Modularizar componentes UI y lógica de negocio.
 - [ ] Evitar sobrecargar carpetas como `components/ui` y agrupar componentes por dominio o funcionalidad.
 - [ ] Crear una carpeta `features/` para cada dominio con sus propios componentes, hooks y tests.
 - [ ] Separar lógica, datos y presentación en todos los componentes y páginas.
