@@ -2,7 +2,7 @@
 
 ## 1. Arquitectura y Escalabilidad
 - [x] Separar lógica de negocio y presentación en carpetas por feature (ej: `habilidades`, `proyectos`).
-- [ ] Centralizar acceso a datos en servicios o hooks (`lib/services`, `hooks/useProjects.ts`).
+- [x] Centralizar acceso a datos en servicios o hooks (`lib/services`, `hooks/useProjects.ts`).
 - [ ] Usar Context para estado global compartido (usuario, skills, proyectos).
 - [ ] Preparar la arquitectura para consumir datos de APIs y no solo archivos locales.
 - [ ] Modularizar componentes UI y lógica de negocio.
