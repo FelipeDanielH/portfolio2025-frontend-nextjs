@@ -1,10 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { Sparkles } from "lucide-react";
-import { getAbout } from "@/lib/services/aboutService";
+import { getAbout } from "@/infrastructure/services/aboutService";
+import { getAboutUseCase } from "@/application/about/getAboutUseCase";
 
 export function SobreMiSection() {
-  const about = getAbout();
+  const about = getAboutUseCase(getAbout);
   return (
     <section id="about" className="py-20 px-6">
       <div className="max-w-4xl mx-auto">

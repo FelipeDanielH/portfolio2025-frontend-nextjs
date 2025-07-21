@@ -1,10 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { getSkills } from "@/lib/services/skillsService";
+import { getSkills } from "@/infrastructure/services/skillsService";
+import { getSkillsUseCase } from "@/application/skills/getSkillsUseCase";
 
 export function HabilidadesSection() {
-  const skills = getSkills();
+  const skills = getSkillsUseCase(getSkills);
   return (
     <section
       id="skills"

@@ -1,10 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Award, GraduationCap } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { getEducation, getCertifications } from "@/lib/services/educationService";
+import { getEducation, getCertifications } from "@/infrastructure/services/educationService";
+import { getEducationUseCase } from "@/application/education/getEducationUseCase";
 
 export function FormacionSection() {
-  const education = getEducation();
+  const education = getEducationUseCase(getEducation);
   const certifications = getCertifications();
   return (
     <section className="py-20 px-6">

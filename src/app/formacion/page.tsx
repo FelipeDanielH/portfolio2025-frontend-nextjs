@@ -3,9 +3,10 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import { formationData } from "@/lib/data"
+import { formationData } from "@/domains/data"
 import { Footer } from "@/components/layout/footer"
-import { generateSlug } from "@/lib/utils"
+import { generateSlug } from "@/domains/utils"
+import type { EducationItem } from "@/domains/types"
 
 export default function Formacion() {
   const sorted = [...formationData].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())

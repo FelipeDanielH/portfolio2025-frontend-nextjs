@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { ChevronDown, ChevronRight, Check, X } from "lucide-react"
-import { skillsData } from "@/lib/data"
+import { skillsData } from "@/domains/data"
 import { Footer } from "@/components/layout/footer"
-import { generateSlug } from "@/lib/utils"
+import { generateSlug } from "@/domains/utils"
+import type { Skill } from "@/domains/types"
 
 export default function Habilidades() {
   const [expandedSkills, setExpandedSkills] = useState<Set<string>>(new Set())

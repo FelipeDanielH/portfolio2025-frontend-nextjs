@@ -6,8 +6,8 @@ import { ThemeToggle } from "../ui/theme-toggle"
 import { FontSizeControl } from "../ui/font-size-control"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { scrollToElement } from "@/lib/utils"
-import type { NavSection } from "@/lib/types"
+import { scrollToElement } from "@/domains/utils"
+import type { NavSection } from "@/domains/types"
 
 export function FloatingNav() {
   const [isVisible, setIsVisible] = useState(false)

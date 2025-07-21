@@ -18,11 +18,11 @@ import {
   Sparkles,
 } from "lucide-react"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import { HabilidadesSection } from '@/features/habilidades/HabilidadesSection'
-import { ProyectosSection } from '@/features/proyectos/ProyectosSection'
-import { ExperienciaSection } from '@/features/experiencia/ExperienciaSection'
-import { FormacionSection } from '@/features/formacion/FormacionSection'
-import { SobreMiSection } from '@/features/sobre-mi/SobreMiSection'
+import { HabilidadesSection } from '@/domains/habilidades/HabilidadesSection'
+import { ProyectosSection } from '@/domains/proyectos/ProyectosSection'
+import { ExperienciaSection } from '@/domains/experiencia/ExperienciaSection'
+import { FormacionSection } from '@/domains/formacion/FormacionSection'
+import { SobreMiSection } from '@/domains/sobre-mi/SobreMiSection'
 
 export default function Portfolio() {
   return (

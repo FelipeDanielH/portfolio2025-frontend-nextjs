@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExternalLink, Github } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { getProjects } from "@/lib/services/projectsService";
+import { getProjects } from "@/infrastructure/services/projectsService";
+import { getProjectsUseCase } from "@/application/projects/getProjectsUseCase";
 
 export function ProyectosSection() {
-  const projects = getProjects();
+  const projects = getProjectsUseCase(getProjects);
   return (
     <section
       id="projects"

@@ -1,10 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Building } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { getExperience } from "@/lib/services/experienceService";
+import { getExperience } from "@/infrastructure/services/experienceService";
+import { getExperienceUseCase } from "@/application/experience/getExperienceUseCase";
 
 export function ExperienciaSection() {
-  const experience = getExperience();
+  const experience = getExperienceUseCase(getExperience);
   return (
     <section id="experience" className="py-20 px-6">
       <div className="max-w-4xl mx-auto">
