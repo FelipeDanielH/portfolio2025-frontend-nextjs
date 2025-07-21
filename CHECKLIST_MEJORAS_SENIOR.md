@@ -1,7 +1,7 @@
 # Checklist de Mejoras Senior para Proyecto Fullstack Portfolio
 
 ## 1. Arquitectura y Escalabilidad
-- [ ] Separar lógica de negocio y presentación en carpetas por feature (ej: `habilidades`, `proyectos`).
+- [x] Separar lógica de negocio y presentación en carpetas por feature (ej: `habilidades`, `proyectos`).
 - [ ] Centralizar acceso a datos en servicios o hooks (`lib/services`, `hooks/useProjects.ts`).
 - [ ] Usar Context para estado global compartido (usuario, skills, proyectos).
 - [ ] Preparar la arquitectura para consumir datos de APIs y no solo archivos locales.
@@ -87,7 +87,7 @@ Utiliza esta checklist como guía para refactorizar y mejorar el proyecto paso a
 ---
 
 **Progreso:**
-- [x] 2024-06-10: Separación de lógica y presentación por features (AI)
+- [x] 2024-06-10: Separación rigurosa de lógica y presentación por features (AI)
 - [x] 2024-06-10: Migración a estructura senior con carpeta src/ y limpieza de anidaciones (AI)
 
 ## Análisis Exhaustivo del Proyecto "Full Stack Portfolio Mock" (v17) por v0
