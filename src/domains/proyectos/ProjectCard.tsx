@@ -8,7 +8,7 @@ import type { Project } from "@/domains/types";
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <ScrollReveal key={index} delay={index * 150}>
-      <Card className="glass border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
+      <Card className="glass shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">

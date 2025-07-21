@@ -1,23 +1,39 @@
 "use client";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { getAbout } from "@/infrastructure/services/aboutService";
+import { getAboutUseCase } from "@/application/about/getAboutUseCase";
 
-import React, { createContext, useContext } from 'react';
-import { useAbout } from './useAbout';
+interface AboutContextType {
+  about: string;
+  loading: boolean;
+  error: string | null;
+}
 
-const AboutContext = createContext<ReturnType<typeof useAbout> | undefined>(undefined);
+const AboutContext = createContext<AboutContextType>({
+  about: "",
+  loading: false,
+  error: null,
+});
 
-export function AboutProvider({ children }: { children: React.ReactNode }) {
-  const value = useAbout();
+export function AboutProvider({ children }: { children: ReactNode }) {
+  const [about, setAbout] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    getAboutUseCase(getAbout)
+      .then(setAbout)
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
-    <AboutContext.Provider value={value}>
+    <AboutContext.Provider value={{ about, loading, error }}>
       {children}
     </AboutContext.Provider>
   );
 }
 
 export function useAboutContext() {
-  const context = useContext(AboutContext);
-  if (context === undefined) {
-    throw new Error('useAboutContext debe usarse dentro de un <AboutProvider>');
-  }
-  return context;
+  return useContext(AboutContext);
 } 

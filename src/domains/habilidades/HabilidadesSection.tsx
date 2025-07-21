@@ -1,3 +1,4 @@
+"use client";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/scroll-reveal";
@@ -5,9 +6,15 @@ import { getSkills } from "@/infrastructure/services/skillsService";
 import { getSkillsUseCase } from "@/application/skills/getSkillsUseCase";
 import { getSkillCategoryLabel } from "@/domains/utils";
 import { SkillCategoryCard } from "./SkillCategoryCard";
+import { useEffect, useState } from "react";
 
 export function HabilidadesSection() {
-  const skills = getSkillsUseCase(getSkills);
+  const [skills, setSkills] = useState<any>({});
+
+  useEffect(() => {
+    getSkillsUseCase(getSkills).then(setSkills);
+  }, []);
+
   return (
     <section
       id="skills"
@@ -23,7 +30,7 @@ export function HabilidadesSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {Object.entries(skills).map(([category, skillList], index) => (
-            <SkillCategoryCard key={category} category={category} skillList={skillList} index={index} />
+            <SkillCategoryCard key={category} category={category} skillList={skillList as string[]} index={index} />
           ))}
         </div>
       </div>
