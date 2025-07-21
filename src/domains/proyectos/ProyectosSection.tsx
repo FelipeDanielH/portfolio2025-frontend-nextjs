@@ -1,13 +1,20 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExternalLink, Github } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { getProjects } from "@/infrastructure/services/projectsService";
-import { getProjectsUseCase } from "@/application/projects/getProjectsUseCase";
+import { useProjectsContext } from "@/hooks/ProjectsContext";
 
 export function ProyectosSection() {
-  const projects = getProjectsUseCase(getProjects);
+  const { data: projects, loading, error } = useProjectsContext();
+  const projectsList = (projects ?? []) as import("@/domains/types").Project[];
+
+  if (loading) return <div className="text-center py-10">Cargando proyectos...</div>;
+  if (error) return <div className="text-center py-10 text-red-500">Error al cargar proyectos</div>;
+  if (!projectsList || projectsList.length === 0) return <div className="text-center py-10">Sin proyectos disponibles</div>;
+
   return (
     <section
       id="projects"
@@ -22,7 +29,7 @@ export function ProyectosSection() {
         </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
+          {projectsList.map((project, index) => (
             <ScrollReveal key={index} delay={index * 150}>
               <Card className="glass border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
                 <CardHeader>

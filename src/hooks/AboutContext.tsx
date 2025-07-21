@@ -6,9 +6,9 @@ import { useAbout } from './useAbout';
 const AboutContext = createContext<ReturnType<typeof useAbout> | undefined>(undefined);
 
 export function AboutProvider({ children }: { children: React.ReactNode }) {
-  const about = useAbout();
+  const value = useAbout();
   return (
-    <AboutContext.Provider value={about}>
+    <AboutContext.Provider value={value}>
       {children}
     </AboutContext.Provider>
   );

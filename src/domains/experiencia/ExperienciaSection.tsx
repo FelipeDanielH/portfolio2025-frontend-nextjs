@@ -1,11 +1,18 @@
+"use client";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Building } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { getExperience } from "@/infrastructure/services/experienceService";
-import { getExperienceUseCase } from "@/application/experience/getExperienceUseCase";
+import { useExperienceContext } from "@/hooks/ExperienceContext";
 
 export function ExperienciaSection() {
-  const experience = getExperienceUseCase(getExperience);
+  const { data: experience, loading, error } = useExperienceContext();
+  const expList = (experience ?? []) as import("@/domains/types").Experience[];
+
+  if (loading) return <div className="text-center py-10">Cargando experiencia...</div>;
+  if (error) return <div className="text-center py-10 text-red-500">Error al cargar experiencia</div>;
+  if (!expList || expList.length === 0) return <div className="text-center py-10">Sin experiencia disponible</div>;
+
   return (
     <section id="experience" className="py-20 px-6">
       <div className="max-w-4xl mx-auto">
@@ -19,7 +26,7 @@ export function ExperienciaSection() {
         <div className="relative">
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-indigo-500" />
 
-          {experience.map((exp, index) => (
+          {expList.map((exp, index) => (
             <ScrollReveal key={index} delay={index * 200}>
               <div className="relative flex items-start gap-8 mb-12 last:mb-0">
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-lg">

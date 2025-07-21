@@ -6,9 +6,9 @@ import { useSkills } from './useSkills';
 const SkillsContext = createContext<ReturnType<typeof useSkills> | undefined>(undefined);
 
 export function SkillsProvider({ children }: { children: React.ReactNode }) {
-  const skills = useSkills();
+  const value = useSkills();
   return (
-    <SkillsContext.Provider value={skills}>
+    <SkillsContext.Provider value={value}>
       {children}
     </SkillsContext.Provider>
   );

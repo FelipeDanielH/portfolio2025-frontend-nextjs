@@ -1,8 +1,8 @@
 // Caso de uso para obtener habilidades
 import type { Skill } from '@/domains/types'
 
-export type GetSkillsService = () => Skill[]
+export type GetSkillsService = () => Promise<any>
 
-export function getSkillsUseCase(getSkillsService: GetSkillsService): Skill[] {
-  return getSkillsService()
+export async function getSkillsUseCase(getSkillsService: GetSkillsService): Promise<any> {
+  return await getSkillsService()
 } 

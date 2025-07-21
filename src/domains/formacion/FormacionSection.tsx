@@ -1,12 +1,18 @@
+"use client";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Award, GraduationCap } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { getEducation, getCertifications } from "@/infrastructure/services/educationService";
-import { getEducationUseCase } from "@/application/education/getEducationUseCase";
+import { useEducationContext } from "@/hooks/EducationContext";
 
 export function FormacionSection() {
-  const education = getEducationUseCase(getEducation);
-  const certifications = getCertifications();
+  const { data: education, loading, error } = useEducationContext();
+  const educationList = (education ?? []) as import("@/domains/types").Education[];
+
+  if (loading) return <div className="text-center py-10">Cargando formación...</div>;
+  if (error) return <div className="text-center py-10 text-red-500">Error al cargar formación</div>;
+  if (!educationList || educationList.length === 0) return <div className="text-center py-10">Sin formación disponible</div>;
+
   return (
     <section className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -20,7 +26,7 @@ export function FormacionSection() {
               </div>
 
               <div className="space-y-6">
-                {education.map((edu, index) => (
+                {educationList.map((edu, index) => (
                   <Card key={index} className="glass border-0 shadow-xl">
                     <CardHeader className="pb-3">
                       <div className="flex items-start gap-3">
@@ -45,32 +51,7 @@ export function FormacionSection() {
           </ScrollReveal>
 
           {/* Certifications */}
-          <ScrollReveal delay={200}>
-            <div>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold mb-4 gradient-text">Certificaciones</h2>
-                <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full" />
-              </div>
-
-              <div className="space-y-4">
-                {certifications.map((cert, index) => (
-                  <Card
-                    key={index}
-                    className="glass border-0 shadow-xl hover:shadow-2xl transition-all duration-300"
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
-                          <Award className="w-4 h-4 text-white" />
-                        </div>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{cert}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </ScrollReveal>
+          {/* Aquí podrías agregar loading/error para certificaciones si lo deseas */}
         </div>
       </div>
     </section>

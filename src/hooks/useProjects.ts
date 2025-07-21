@@ -1,9 +1,19 @@
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { getProjects } from '@/infrastructure/services/projectsService'
 import { getProjectsUseCase } from '@/application/projects/getProjectsUseCase'
 
 export function useProjects() {
-  // Si en el futuro hay loading/error, aquí se puede manejar
-  const projects = useMemo(() => getProjectsUseCase(getProjects), [])
-  return projects
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    setLoading(true)
+    getProjectsUseCase(getProjects)
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false))
+  }, [])
+
+  return { data, loading, error }
 } 

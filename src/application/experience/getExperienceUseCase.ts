@@ -1,8 +1,8 @@
 // Caso de uso para obtener experiencia
 import type { Experience } from '@/domains/types'
 
-export type GetExperienceService = () => Experience[]
+export type GetExperienceService = () => Promise<Experience[]>
 
-export function getExperienceUseCase(getExperienceService: GetExperienceService): Experience[] {
-  return getExperienceService()
+export async function getExperienceUseCase(getExperienceService: GetExperienceService): Promise<Experience[]> {
+  return await getExperienceService()
 } 

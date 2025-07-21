@@ -2,14 +2,13 @@
 
 import React, { createContext, useContext } from 'react';
 import { useProjects } from './useProjects';
-import type { Project } from '@/domains/types';
 
-const ProjectsContext = createContext<Project[] | undefined>(undefined);
+const ProjectsContext = createContext<ReturnType<typeof useProjects> | undefined>(undefined);
 
 export function ProjectsProvider({ children }: { children: React.ReactNode }) {
-  const projects = useProjects();
+  const value = useProjects();
   return (
-    <ProjectsContext.Provider value={projects}>
+    <ProjectsContext.Provider value={value}>
       {children}
     </ProjectsContext.Provider>
   );

@@ -1,8 +1,8 @@
 // Caso de uso para obtener educación
 import type { EducationItem } from '@/domains/types'
 
-export type GetEducationService = () => EducationItem[]
+export type GetEducationService = () => Promise<EducationItem[]>
 
-export function getEducationUseCase(getEducationService: GetEducationService): EducationItem[] {
-  return getEducationService()
+export async function getEducationUseCase(getEducationService: GetEducationService): Promise<EducationItem[]> {
+  return await getEducationService()
 } 

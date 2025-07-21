@@ -1,6 +1,6 @@
 // Caso de uso para obtener datos de sobre mí
-export type GetAboutService = () => any
+export type GetAboutService = () => Promise<any>
 
-export function getAboutUseCase(getAboutService: GetAboutService) {
-  return getAboutService()
+export async function getAboutUseCase(getAboutService: GetAboutService) {
+  return await getAboutService()
 } 

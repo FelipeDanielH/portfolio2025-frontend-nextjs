@@ -6,9 +6,9 @@ import { useExperience } from './useExperience';
 const ExperienceContext = createContext<ReturnType<typeof useExperience> | undefined>(undefined);
 
 export function ExperienceProvider({ children }: { children: React.ReactNode }) {
-  const experience = useExperience();
+  const value = useExperience();
   return (
-    <ExperienceContext.Provider value={experience}>
+    <ExperienceContext.Provider value={value}>
       {children}
     </ExperienceContext.Provider>
   );

@@ -6,9 +6,9 @@ import { useEducation } from './useEducation';
 const EducationContext = createContext<ReturnType<typeof useEducation> | undefined>(undefined);
 
 export function EducationProvider({ children }: { children: React.ReactNode }) {
-  const education = useEducation();
+  const value = useEducation();
   return (
-    <EducationContext.Provider value={education}>
+    <EducationContext.Provider value={value}>
       {children}
     </EducationContext.Provider>
   );

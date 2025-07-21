@@ -1,8 +1,19 @@
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { getSkills } from '@/infrastructure/services/skillsService'
 import { getSkillsUseCase } from '@/application/skills/getSkillsUseCase'
 
 export function useSkills() {
-  const skills = useMemo(() => getSkillsUseCase(getSkills), [])
-  return skills
+  const [data, setData] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    setLoading(true)
+    getSkillsUseCase(getSkills)
+      .then(setData)
+      .catch(setError)
+      .finally(() => setLoading(false))
+  }, [])
+
+  return { data, loading, error }
 } 
