@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/layout/navbar"
 import { FloatingNav } from "@/components/layout/floating-nav"
 import { BackToTop } from "@/components/ui/back-to-top"
+import { AppProviders } from "@/hooks/AppProviders"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={false}>
-          <Navbar />
-          <FloatingNav />
-          <BackToTop />
-          {children}
-        </ThemeProvider>
+        <AppProviders>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={false}>
+            <Navbar />
+            <FloatingNav />
+            <BackToTop />
+            {children}
+          </ThemeProvider>
+        </AppProviders>
       </body>
     </html>
   )
