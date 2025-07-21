@@ -1,17 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/scroll-reveal";
-
-const skills = {
-  languages: ["JavaScript", "TypeScript", "Java", "SQL", "Python"],
-  frontend: ["React.js", "Next.js", "HTML", "CSS", "Tailwind"],
-  backend: ["Node.js", "Express", "Spring Boot"],
-  databases: ["MySQL", "MongoDB", "PostgreSQL"],
-  devops: ["Git", "Docker", "Vercel", "GCP", "AWS"],
-  others: ["JWT", "REST APIs", "MVC", "Testing Unitario", "CI/CD", "Scrum"],
-};
+import { getSkills } from "@/lib/services/skillsService";
 
 export function HabilidadesSection() {
+  const skills = getSkills();
   return (
     <section
       id="skills"

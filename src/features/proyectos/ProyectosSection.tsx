@@ -3,44 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExternalLink, Github } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-
-const projects = [
-  {
-    name: "Ecomarket",
-    description: "E-commerce full stack con React y Spring Boot. MySQL, despliegue en Vercel/GCP.",
-    tech: ["React", "Spring Boot", "MySQL"],
-    links: [
-      { label: "Frontend", url: "#" },
-      { label: "Backend", url: "#" },
-    ],
-  },
-  {
-    name: "BancoSimple",
-    description: "App bancaria con autenticación JWT. React + Spring Boot + MySQL.",
-    tech: ["React", "Spring Boot", "JWT"],
-    links: [
-      { label: "Frontend", url: "#" },
-      { label: "Backend", url: "#" },
-    ],
-  },
-  {
-    name: "Gestor de Tareas CLI",
-    description: "App Node.js interactiva (Inquirer).",
-    tech: ["Node.js", "CLI", "Inquirer"],
-    links: [
-      { label: "Demo", url: "#" },
-      { label: "GitHub", url: "#" },
-    ],
-  },
-  {
-    name: "Portafolio Web",
-    description: "Sitio MERN personal con despliegue en Vercel.",
-    tech: ["MERN", "Vercel"],
-    links: [{ label: "Enlace", url: "#" }],
-  },
-];
+import { getProjects } from "@/lib/services/projectsService";
 
 export function ProyectosSection() {
+  const projects = getProjects();
   return (
     <section
       id="projects"

@@ -1,8 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { Sparkles } from "lucide-react";
+import { getAbout } from "@/lib/services/aboutService";
 
 export function SobreMiSection() {
+  const about = getAbout();
   return (
     <section id="about" className="py-20 px-6">
       <div className="max-w-4xl mx-auto">
@@ -22,10 +24,7 @@ export function SobreMiSection() {
                 </div>
                 <div>
                   <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                    Ingeniero en Informática y egresado del bootcamp Full Stack (540h) de Generation Chile.
-                    Desarrollo frontend y backend con React, Node.js y Spring Boot. Bases de datos SQL/NoSQL y
-                    despliegue en cloud (Vercel, GCP, AWS). Busco aportar y crecer en equipos con buenas prácticas y
-                    metodologías ágiles.
+                    {about}
                   </p>
                 </div>
               </div>

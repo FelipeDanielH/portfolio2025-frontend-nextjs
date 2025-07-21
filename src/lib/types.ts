@@ -56,3 +56,17 @@ export interface EducationItem {
   skills?: string[]
   status: "Completado" | "En progreso"
 }
+
+export interface Experience {
+  title: string;
+  company?: string;
+  period: string;
+  description: string;
+}
+
+export interface Education {
+  title: string;
+  institution: string;
+  year: string;
+  description: string;
+}

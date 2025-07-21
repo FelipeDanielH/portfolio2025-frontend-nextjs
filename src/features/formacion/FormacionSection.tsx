@@ -1,28 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Award, GraduationCap } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-
-const education = [
-  {
-    title: "Bootcamp Full Stack (540h)",
-    institution: "Generation Chile",
-    year: "2025",
-    description: "Stack MERN, Spring Boot, despliegue, testing, buenas prácticas.",
-  },
-  {
-    title: "Ingeniería en Informática",
-    institution: "Duoc UC",
-    year: "2021",
-    description: "(Certificado de título)",
-  },
-];
-
-const certifications = [
-  "React: De cero a experto – Udemy",
-  "Docker: Guía práctica para desarrolladores",
-];
+import { getEducation, getCertifications } from "@/lib/services/educationService";
 
 export function FormacionSection() {
+  const education = getEducation();
+  const certifications = getCertifications();
   return (
     <section className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
