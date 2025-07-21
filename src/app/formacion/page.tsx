@@ -25,7 +25,7 @@ export default function Formacion() {
           {sorted.map((item, idx) => (
             <ScrollReveal key={idx} delay={idx * 120}>
               <Card
-                className="glass border-0 shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="glass shadow-xl hover:shadow-2xl transition-all duration-300"
                 id={`formacion-${generateSlug(item.title)}`}
               >
                 <CardHeader>

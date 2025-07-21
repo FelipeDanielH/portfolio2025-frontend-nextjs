@@ -16,7 +16,7 @@ export default function SobreMi() {
 
         <div className="space-y-8">
           <ScrollReveal delay={200}>
-            <Card id="mi-historia" className="glass border-0 shadow-2xl">
+            <Card id="mi-historia" className="glass shadow-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
@@ -48,7 +48,7 @@ export default function SobreMi() {
           </ScrollReveal>
 
           <ScrollReveal delay={400}>
-            <Card id="mis-objetivos" className="glass border-0 shadow-2xl">
+            <Card id="mis-objetivos" className="glass shadow-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
@@ -73,7 +73,7 @@ export default function SobreMi() {
           </ScrollReveal>
 
           <ScrollReveal delay={600}>
-            <Card id="mis-pasiones" className="glass border-0 shadow-2xl">
+            <Card id="mis-pasiones" className="glass shadow-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
@@ -98,7 +98,7 @@ export default function SobreMi() {
           </ScrollReveal>
 
           <ScrollReveal delay={800}>
-            <Card id="mi-filosofia" className="glass border-0 shadow-2xl">
+            <Card id="mi-filosofia" className="glass shadow-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">

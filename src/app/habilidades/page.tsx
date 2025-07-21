@@ -83,7 +83,7 @@ export default function Habilidades() {
           {filteredSkills.map((skill, index) => (
             <ScrollReveal key={skill.name} delay={index * 100}>
               <Card
-                className="glass border-0 shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="glass shadow-xl hover:shadow-2xl transition-all duration-300"
                 data-skill={skill.name}
               >
                 <CardHeader className="cursor-pointer" onClick={() => toggleSkill(skill.name)}>

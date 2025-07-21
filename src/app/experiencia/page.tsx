@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { Building, Calendar, ChevronDown, ChevronRight, MapPin, Users, Target, Award } from "lucide-react"
-import { experienceData } from "@/lib/data"
+import { experienceData } from "@/domains/experiencia/data"
 import { Footer } from "@/components/layout/footer"
 
 export default function Experiencia() {
@@ -41,7 +41,7 @@ export default function Experiencia() {
                   <Building className="w-8 h-8 text-white" />
                 </div>
 
-                <Card className="flex-1 glass border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Card className="flex-1 glass shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardHeader className="cursor-pointer" onClick={() => toggleItem(index)}>
                     <div className="flex items-start justify-between">
                       <div className="flex-1">

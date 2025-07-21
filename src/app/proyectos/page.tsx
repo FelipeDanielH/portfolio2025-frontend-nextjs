@@ -1,29 +1,16 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import { ExternalLink, Github, Filter } from "lucide-react"
+import { Filter } from "lucide-react"
 import { projectsData } from "@/domains/data"
 import { Footer } from "@/components/layout/footer"
 import { generateSlug } from "@/domains/utils"
 import type { Project } from "@/domains/types"
-
-interface Project {
-  name: string
-  description: string
-  longDescription: string
-  image: string
-  tech: string[]
-  frameworks: string[]
-  languages: string[]
-  role: string[]
-  links: { label: string; url: string }[]
-  status: string
-  year: string
-}
+import { ProjectCard } from "@/domains/proyectos/ProjectCard"
 
 export default function Proyectos() {
   const [filteredProjects, setFilteredProjects] = useState(projectsData)
@@ -83,7 +70,7 @@ export default function Proyectos() {
 
         {/* Filtros */}
         <ScrollReveal delay={200}>
-          <Card className="glass border-0 shadow-xl mb-12">
+          <Card className="glass shadow-xl mb-12">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Filter className="w-5 h-5" />
@@ -96,7 +83,71 @@ export default function Proyectos() {
                   <h4 className="font-medium text-gray-900 dark:text-white mb-3">Framework</h4>
                   <div className="flex flex-wrap gap-2">
                     {frameworks.map((framework) => (
-                      <button
+                      <Button
                         key={framework}
+                        variant={activeFilters.framework === framework ? "default" : "outline"}
                         onClick={() => applyFilters("framework", framework)}
-                        className={`
+                        className="capitalize"
+                      >
+                        {framework}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white mb-3">Lenguaje</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {languages.map((language) => (
+                      <Button
+                        key={language}
+                        variant={activeFilters.language === language ? "default" : "outline"}
+                        onClick={() => applyFilters("language", language)}
+                        className="capitalize"
+                      >
+                        {language}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white mb-3">Rol</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {roles.map((role) => (
+                      <Button
+                        key={role}
+                        variant={activeFilters.role === role ? "default" : "outline"}
+                        onClick={() => applyFilters("role", role)}
+                        className="capitalize"
+                      >
+                        {role}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <Button variant="ghost" onClick={clearFilters}>
+                  Limpiar filtros
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </ScrollReveal>
+
+        {/* Lista de proyectos */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {filteredProjects.length === 0 ? (
+            <div className="col-span-2 text-center py-10 text-gray-500 dark:text-gray-400">
+              No se encontraron proyectos con los filtros seleccionados.
+            </div>
+          ) : (
+            filteredProjects.map((project, index) => (
+              <ProjectCard key={project.name} project={project} index={index} />
+            ))
+          )}
+        </div>
+      </main>
+      <Footer />
+    </div>
+  )
+}
