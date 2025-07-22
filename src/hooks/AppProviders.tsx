@@ -1,10 +1,10 @@
 "use client";
 
-import { ProjectsProvider } from './ProjectsContext';
-import { SkillsProvider } from './SkillsContext';
-import { ExperienceProvider } from './ExperienceContext';
-import { EducationProvider } from './EducationContext';
-import { AboutProvider } from './AboutContext';
+import { ProjectsProvider } from '@/domains/proyectos/hooks/ProjectsContext';
+import { SkillsProvider } from '@/domains/habilidades/hooks/SkillsContext';
+import { ExperienceProvider } from '@/domains/experiencia/hooks/ExperienceContext';
+import { EducationProvider } from '@/domains/formacion/hooks/EducationContext';
+import { AboutProvider } from '@/domains/sobre-mi/hooks/AboutContext';
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
