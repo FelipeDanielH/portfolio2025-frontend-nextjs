@@ -9,7 +9,7 @@
 - [x] Modularizar componentes UI y lógica de negocio por dominio.
 - [x] Evitar sobrecargar carpetas como `components/ui` y agrupar componentes por dominio en `src/domains/`.
 - [x] Crear una carpeta `domains/` en `src/` para cada dominio, agrupando sus propios componentes, hooks, servicios, lógica y tests por dominio.
-- [ ] Separar lógica, datos y presentación dentro de cada dominio en `src/domains/`, siguiendo los límites de contexto de DDD.
+- [x] Separar lógica, datos y presentación dentro de cada dominio en `src/domains/`, siguiendo los límites de contexto de DDD.
 - [ ] Eliminar duplicidad de archivos y consolidar la estructura de carpetas bajo la organización por dominios.
 
 ## 2. Principios SOLID y Buenas Prácticas

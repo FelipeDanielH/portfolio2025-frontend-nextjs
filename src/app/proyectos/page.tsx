@@ -10,7 +10,7 @@ import { projectsData } from "@/domains/data"
 import { Footer } from "@/components/layout/footer"
 import { generateSlug } from "@/domains/utils"
 import type { Project } from "@/domains/types"
-import { ProjectCard } from "@/domains/proyectos/ProjectCard"
+import { ProjectCard } from "@/domains/proyectos/components/ProjectCard"
 
 export default function Proyectos() {
   const [filteredProjects, setFilteredProjects] = useState(projectsData)
