@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Award, GraduationCap } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { useEducationContext } from "@/hooks/EducationContext";
+import { useEducationContext } from "@/domains/formacion/hooks/EducationContext";
 import { EducationCard } from "@/domains/formacion/components/EducationCard";
 
 export function FormacionSection() {
