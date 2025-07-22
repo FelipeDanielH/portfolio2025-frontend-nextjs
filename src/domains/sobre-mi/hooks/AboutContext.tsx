@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { getAbout } from "@/infrastructure/services/aboutService";
+import { getAbout } from "@/domains/sobre-mi/services/aboutService";
 import { getAboutUseCase } from "@/application/about/getAboutUseCase";
 
 interface AboutContextType {
