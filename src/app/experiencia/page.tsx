@@ -7,19 +7,10 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 import { Building, Calendar, ChevronDown, ChevronRight, MapPin, Users, Target, Award } from "lucide-react"
 import { experienceData } from "@/domains/experiencia/data"
 import { Footer } from "@/components/layout/footer"
+import { useExperienceExpansion } from "@/domains/experiencia/hooks/useExperienceExpansion";
 
 export default function Experiencia() {
-  const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set())
-
-  const toggleItem = (index: number) => {
-    const newExpanded = new Set(expandedItems)
-    if (newExpanded.has(index)) {
-      newExpanded.delete(index)
-    } else {
-      newExpanded.add(index)
-    }
-    setExpandedItems(newExpanded)
-  }
+  const { expandedItems, toggleItem } = useExperienceExpansion();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-gray-900 dark:via-blue-950/50 dark:to-black pt-24">
