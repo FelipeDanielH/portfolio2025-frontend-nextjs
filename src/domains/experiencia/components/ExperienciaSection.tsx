@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Building } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { useExperienceContext } from "@/hooks/ExperienceContext";
+import { useExperienceContext } from "@/domains/experiencia/hooks/ExperienceContext";
 import { ExperienceCard } from "@/domains/experiencia/components/ExperienceCard";
 
 export function ExperienciaSection() {

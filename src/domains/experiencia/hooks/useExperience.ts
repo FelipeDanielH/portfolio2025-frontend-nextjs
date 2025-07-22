@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { getExperience } from '@/infrastructure/services/experienceService'
+import { getExperience } from '@/domains/experiencia/services/experienceService'
 import { getExperienceUseCase } from '@/application/experience/getExperienceUseCase'
+import { Experience } from '@/domains/types'
 
 export function useExperience() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<Experience[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
