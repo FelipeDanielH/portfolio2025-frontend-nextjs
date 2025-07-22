@@ -2,11 +2,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { getSkills } from "@/infrastructure/services/skillsService";
+import { getSkills } from "@/domains/habilidades/services/skillsService";
 import { getSkillsUseCase } from "@/application/skills/getSkillsUseCase";
 import { getSkillCategoryLabel } from "@/domains/utils";
 import { SkillCategoryCard } from "@/domains/habilidades/components/SkillCategoryCard";
 import { useEffect, useState } from "react";
+import { useSkillsContext } from "@/domains/habilidades/hooks/SkillsContext";
 
 export function HabilidadesSection() {
   const [skills, setSkills] = useState<any>({});
