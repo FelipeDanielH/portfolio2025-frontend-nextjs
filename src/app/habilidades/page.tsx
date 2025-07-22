@@ -9,15 +9,19 @@ import { skillsData } from "@/domains/habilidades/data"
 import { Footer } from "@/components/layout/footer"
 import { generateSlug } from "@/domains/utils"
 import type { Skill } from "@/domains/types"
+import { useSkillFilters } from "@/domains/habilidades/hooks/useSkillFilters";
 
 export default function Habilidades() {
-  const [expandedSkills, setExpandedSkills] = useState<Set<string>>(new Set())
-  const [selectedCategory, setSelectedCategory] = useState<string>("Todos")
-
-  const categories = ["Todos", ...Array.from(new Set(skillsData.map((skill) => skill.category)))]
-
-  const filteredSkills =
-    selectedCategory === "Todos" ? skillsData : skillsData.filter((skill) => skill.category === selectedCategory)
+  const {
+    expandedSkills,
+    selectedCategory,
+    setSelectedCategory,
+    categories,
+    filteredSkills,
+    toggleSkill,
+    getRatingColor,
+    getRatingText,
+  } = useSkillFilters();
 
   useEffect(() => {
     filteredSkills.forEach((skill) => {
@@ -27,29 +31,6 @@ export default function Habilidades() {
       }
     })
   }, [filteredSkills])
-
-  const toggleSkill = (skillName: string) => {
-    const newExpanded = new Set(expandedSkills)
-    if (newExpanded.has(skillName)) {
-      newExpanded.delete(skillName)
-    } else {
-      newExpanded.add(skillName)
-    }
-    setExpandedSkills(newExpanded)
-  }
-
-  const getRatingColor = (rating: number) => {
-    if (rating >= 8) return "from-green-500 to-emerald-600"
-    if (rating >= 6) return "from-yellow-500 to-orange-600"
-    return "from-red-500 to-pink-600"
-  }
-
-  const getRatingText = (rating: number) => {
-    if (rating >= 9) return "Experto"
-    if (rating >= 7) return "Avanzado"
-    if (rating >= 5) return "Intermedio"
-    return "Básico"
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-gray-900 dark:via-blue-950/50 dark:to-black pt-24">
@@ -125,7 +106,7 @@ export default function Habilidades() {
                     <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                       <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Conceptos y Conocimientos:</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        {skill.concepts.map((concept) => (
+                        {skill.concepts.map((concept: { name: string; learned: boolean }) => (
                           <div
                             key={concept.name}
                             className="flex items-center gap-3 p-2 rounded-lg bg-gray-50 dark:bg-gray-800/50"
