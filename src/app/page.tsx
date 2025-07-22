@@ -22,7 +22,7 @@ import { HabilidadesSection } from '@/domains/habilidades/components/Habilidades
 import { ProyectosSection } from '@/domains/proyectos/components/ProyectosSection'
 import { ExperienciaSection } from '@/domains/experiencia/components/ExperienciaSection'
 import { FormacionSection } from '@/domains/formacion/components/FormacionSection'
-import { getAbout } from "@/infrastructure/services/aboutService";
+import { getAbout } from "@/domains/sobre-mi/services/aboutService";
 import { getAboutUseCase } from "@/application/about/getAboutUseCase";
 import { SobreMiSection } from "@/domains/sobre-mi/components/SobreMiSection";
 
