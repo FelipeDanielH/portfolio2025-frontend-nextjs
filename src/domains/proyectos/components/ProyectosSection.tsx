@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExternalLink, Github } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { useProjectsContext } from "@/hooks/ProjectsContext";
+import { useProjectsContext } from "@/domains/proyectos/hooks/ProjectsContext";
 import { ProjectCard } from "./ProjectCard";
 
 export function ProyectosSection() {
