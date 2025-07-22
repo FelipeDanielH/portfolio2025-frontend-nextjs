@@ -7,9 +7,10 @@ import { formationData } from "@/domains/formacion/data"
 import { Footer } from "@/components/layout/footer"
 import { generateSlug } from "@/domains/utils"
 import type { EducationItem } from "@/domains/types"
+import { useSortedFormation } from "@/domains/formacion/hooks/useSortedFormation";
 
 export default function Formacion() {
-  const sorted = [...formationData].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const { sorted } = useSortedFormation();
 
   return (
     <div className="min-h-screen pt-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-gray-900 dark:via-blue-950/50 dark:to-black">
@@ -79,7 +80,7 @@ export default function Formacion() {
 
                   {item.details && (
                     <ul className="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-400 mb-4">
-                      {item.details.map((d) => (
+                      {item.details.map((d: string) => (
                         <li key={d}>{d}</li>
                       ))}
                     </ul>
@@ -87,7 +88,7 @@ export default function Formacion() {
 
                   {item.skills && (
                     <div className="flex flex-wrap gap-2">
-                      {item.skills.map((skill) => (
+                      {item.skills.map((skill: string) => (
                         <Badge
                           key={skill}
                           variant="secondary"
