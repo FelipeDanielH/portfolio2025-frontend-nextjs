@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getSkills } from '@/domains/habilidades/services/skillsService'
+import { fetchSkills } from '@/domains/habilidades/services/skillsService'
 import { getSkillsUseCase } from '@/application/skills/getSkillsUseCase'
 
 export function useSkills() {
@@ -9,7 +9,7 @@ export function useSkills() {
 
   useEffect(() => {
     setLoading(true)
-    getSkillsUseCase(getSkills)
+    getSkillsUseCase(fetchSkills)
       .then(setData)
       .catch(setError)
       .finally(() => setLoading(false))
