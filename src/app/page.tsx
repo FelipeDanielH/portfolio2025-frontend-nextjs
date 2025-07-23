@@ -22,12 +22,9 @@ import { HabilidadesSection } from '@/domains/habilidades/components/Habilidades
 import { ProyectosSection } from '@/domains/proyectos/components/ProyectosSection'
 import { ExperienciaSection } from '@/domains/experiencia/components/ExperienciaSection'
 import { FormacionSection } from '@/domains/formacion/components/FormacionSection'
-import { getAbout } from "@/domains/sobre-mi/services/aboutService";
-import { getAboutUseCase } from "@/application/about/getAboutUseCase";
 import { SobreMiSection } from "@/domains/sobre-mi/components/SobreMiSection";
 
-export default async function Portfolio() {
-  const about = await getAboutUseCase(getAbout);
+export default function Portfolio() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-gray-900 dark:via-blue-950/50 dark:to-black">
       {/* Hero Section */}
@@ -89,7 +86,7 @@ export default async function Portfolio() {
       </section>
 
       <main className="relative z-10">
-        <SobreMiSection about={about} />
+        <SobreMiSection about={"Soy Felipe Henríquez, desarrollador full stack..."} />
         <HabilidadesSection />
         <ExperienciaSection />
         <ProyectosSection />
@@ -98,7 +95,7 @@ export default async function Portfolio() {
         <section className="py-20 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal>
-              <h2 className="text-4xl font-bold mb-6">¿Listo para trabajar juntos?</h2>
+              <h2 className="text-4xl font-bold mb-6"> 1Listo para trabajar juntos?</h2>
               <p className="text-xl mb-8 text-blue-100">Estoy disponible para nuevos proyectos y oportunidades</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" variant="secondary" className="px-8 py-3 rounded-full">
