@@ -18,7 +18,8 @@ import {
   Sparkles,
 } from "lucide-react"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import { HabilidadesSection } from '@/domains/habilidades/components/HabilidadesSection'
+import { HabilidadesTecnicasHomeSection } from '@/domains/habilidades/components/HabilidadesTecnicasHomeSection'
+import { habilidadesTecnicasHome } from '@/domains/habilidades/data'
 import { ProyectosSection } from '@/domains/proyectos/components/ProyectosSection'
 import { ExperienciaSection } from '@/domains/experiencia/components/ExperienciaSection'
 import { FormacionSection } from '@/domains/formacion/components/FormacionSection'
@@ -87,7 +88,7 @@ export default function Portfolio() {
 
       <main className="relative z-10">
         <SobreMiSection about={"Soy Felipe Henríquez, desarrollador full stack..."} />
-        <HabilidadesSection />
+        <HabilidadesTecnicasHomeSection data={habilidadesTecnicasHome} />
         <ExperienciaSection />
         <ProyectosSection />
         <FormacionSection />

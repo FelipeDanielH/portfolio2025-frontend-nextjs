@@ -143,4 +143,31 @@ export const skillsData: Skill[] = [
       { name: "API Gateway", learned: false },
     ],
   },
+];
+
+export const habilidadesTecnicasHome = [
+  {
+    categoria: "Lenguajes",
+    skills: ["JavaScript", "TypeScript", "Java", "SQL", "Python"],
+  },
+  {
+    categoria: "Frontend",
+    skills: ["React.js", "Next.js", "HTML", "CSS", "Tailwind"],
+  },
+  {
+    categoria: "Backend",
+    skills: ["Node.js", "Express", "Spring Boot"],
+  },
+  {
+    categoria: "Bases de Datos",
+    skills: ["MySQL", "MongoDB", "PostgreSQL"],
+  },
+  {
+    categoria: "DevOps",
+    skills: ["Git", "Docker", "Vercel", "GCP", "AWS"],
+  },
+  {
+    categoria: "Otros",
+    skills: ["JWT", "REST APIs", "MVC", "Testing Unitario", "CI/CD", "Scrum"],
+  },
 ]; 
