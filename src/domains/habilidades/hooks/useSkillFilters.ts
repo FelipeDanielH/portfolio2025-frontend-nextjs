@@ -9,19 +9,19 @@ export function useSkillFilters() {
 
   const categories = [
     "Todos",
-    ...Array.from(new Set(skillsData.map((skill) => skill.category))),
+    ...Array.from(new Set(skillsData.map((skill) => skill.nivel))),
   ];
 
   const filteredSkills =
     selectedCategory === "Todos"
       ? skillsData
-      : skillsData.filter((skill) => skill.category === selectedCategory);
+      : skillsData.filter((skill) => skill.nivel === selectedCategory);
 
   useEffect(() => {
     filteredSkills.forEach((skill) => {
-      const element = document.querySelector(`[data-skill="${skill.name}"]`);
+      const element = document.querySelector(`[data-skill="${skill.tecnologia}"]`);
       if (element) {
-        element.id = `skill-${generateSlug(skill.name)}`;
+        element.id = `skill-${generateSlug(skill.tecnologia)}`;
       }
     });
   }, [filteredSkills]);
