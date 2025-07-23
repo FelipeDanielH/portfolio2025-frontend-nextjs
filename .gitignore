@@ -29,3 +29,8 @@ next-env.d.ts
 # otros
 v0-legacy/
 PROTOCOLO_MIGRACION_DDD.md
+
+# Apuntes y checklist personalizados
+apuntes_personalizados/
+checklist_implementacion_api/
+docs/
