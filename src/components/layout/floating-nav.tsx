@@ -100,7 +100,11 @@ export function FloatingNav() {
     }
   }
 
-  const displaySections = sections.length > 0 ? sections : getDefaultSections()
+  // Adaptar para usar window.__aboutSections en /sobre-mi
+  let displaySections = sections.length > 0 ? sections : getDefaultSections();
+  if (typeof window !== "undefined" && pathname === "/sobre-mi" && window.__aboutSections && window.__aboutSections.length > 0) {
+    displaySections = window.__aboutSections;
+  }
 
   return (
     <nav className="fixed top-6 right-6 z-50">
