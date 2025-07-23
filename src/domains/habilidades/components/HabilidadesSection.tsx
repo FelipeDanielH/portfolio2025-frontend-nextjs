@@ -2,7 +2,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { fetchSkills } from "@/domains/habilidades/services/skillsService";
+import { getSkills } from "@/domains/habilidades/services/skillsService";
 import { getSkillsUseCase } from "@/application/skills/getSkillsUseCase";
 import { getSkillCategoryLabel } from "@/domains/utils";
 import { SkillCategoryCard } from "@/domains/habilidades/components/SkillCategoryCard";
@@ -13,7 +13,7 @@ export function HabilidadesSection() {
   const [skills, setSkills] = useState<any>({});
 
   useEffect(() => {
-    getSkillsUseCase(fetchSkills).then(setSkills);
+    getSkillsUseCase(getSkills).then(setSkills);
   }, []);
 
   return (
