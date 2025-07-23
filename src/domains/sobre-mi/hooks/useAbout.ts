@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react'
-import { getAbout } from '@/domains/sobre-mi/services/aboutService'
-import { getAboutUseCase } from '@/application/about/getAboutUseCase'
+"use client";
+import { useEffect, useState } from 'react';
+import { fetchAboutSections } from '../services/aboutService';
+import { AboutSection } from '../types';
 
-export function useAbout() {
-  const [data, setData] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
+export function useAboutSections() {
+  const [data, setData] = useState<AboutSection[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setLoading(true)
-    getAboutUseCase(getAbout)
+    setLoading(true);
+    fetchAboutSections()
       .then(setData)
-      .catch(setError)
-      .finally(() => setLoading(false))
-  }, [])
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
+  }, []);
 
-  return { data, loading, error }
+  return { data, loading, error };
 } 

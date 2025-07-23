@@ -1,7 +1,5 @@
 "use client";
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { getAbout } from "@/domains/sobre-mi/services/aboutService";
-import { getAboutUseCase } from "@/application/about/getAboutUseCase";
+import { createContext, useContext, ReactNode } from "react";
 
 interface AboutContextType {
   about: string;
@@ -16,19 +14,9 @@ const AboutContext = createContext<AboutContextType>({
 });
 
 export function AboutProvider({ children }: { children: ReactNode }) {
-  const [about, setAbout] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    getAboutUseCase(getAbout)
-      .then(setAbout)
-      .catch((e) => setError(e.message))
-      .finally(() => setLoading(false));
-  }, []);
-
+  // Placeholder: No fetch ni lógica, solo contexto vacío
   return (
-    <AboutContext.Provider value={{ about, loading, error }}>
+    <AboutContext.Provider value={{ about: "", loading: false, error: null }}>
       {children}
     </AboutContext.Provider>
   );

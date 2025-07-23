@@ -1,6 +1,10 @@
-const aboutData = `Ingeniero en Informática y egresado del bootcamp Full Stack (540h) de Generation Chile.\nDesarrollo frontend y backend con React, Node.js y Spring Boot. Bases de datos SQL/NoSQL y despliegue en cloud (Vercel, GCP, AWS). Busco aportar y crecer en equipos con buenas prácticas y metodologías ágiles.`;
+import { AboutSection } from '../types';
 
-export async function getAbout() {
-  await new Promise(res => setTimeout(res, 300));
-  return aboutData;
+export async function fetchAboutSections(): Promise<AboutSection[]> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/about`, {
+    next: { revalidate: 60 },
+  });
+  if (!res.ok) throw new Error('Error al obtener About');
+  const data = await res.json();
+  return data as AboutSection[];
 } 
