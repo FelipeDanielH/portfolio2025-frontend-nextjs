@@ -6,33 +6,25 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { Filter } from "lucide-react"
-import { projectsData } from "@/domains/proyectos/data"
 import { Footer } from "@/components/layout/footer"
 import { generateSlug } from "@/domains/utils"
-import type { Project } from "@/domains/types"
 import { ProjectCard } from "@/domains/proyectos/components/ProjectCard"
-import { useProjectFilters } from "@/domains/proyectos/hooks/useProjectFilters";
+import { useProjects } from '@/domains/proyectos/hooks/useProjects';
+import { useProjectFilters } from '@/domains/proyectos/hooks/useProjectFilters';
 
 export default function Proyectos() {
-  const {
-    filteredProjects,
-    activeFilters,
-    frameworks,
-    languages,
-    roles,
-    applyFilters,
-    clearFilters,
-  } = useProjectFilters();
+  const { data: projects, loading, error } = useProjects();
+  const filters = useProjectFilters(projects ?? []);
 
   // Agregar IDs a los proyectos para navegación
   useEffect(() => {
-    filteredProjects.forEach((project) => {
-      const element = document.querySelector(`[data-project="${project.name}"]`)
+    filters.filteredProjects.forEach((project) => {
+      const element = document.querySelector(`[data-project="${project.nombre}"]`)
       if (element) {
-        element.id = `proyecto-${generateSlug(project.name)}`
+        element.id = `proyecto-${generateSlug(project.nombre)}`
       }
     })
-  }, [filteredProjects])
+  }, [filters.filteredProjects])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-gray-900 dark:via-blue-950/50 dark:to-black pt-24">
@@ -58,11 +50,11 @@ export default function Proyectos() {
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white mb-3">Framework</h4>
                   <div className="flex flex-wrap gap-2">
-                    {frameworks.map((framework) => (
+                    {filters.frameworks.map((framework) => (
                       <Button
                         key={framework}
-                        variant={activeFilters.framework === framework ? "default" : "outline"}
-                        onClick={() => applyFilters("framework", framework)}
+                        variant={filters.activeFilters.framework === framework ? "default" : "outline"}
+                        onClick={() => filters.applyFilters("framework", framework)}
                         className="capitalize"
                       >
                         {framework}
@@ -73,11 +65,11 @@ export default function Proyectos() {
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white mb-3">Lenguaje</h4>
                   <div className="flex flex-wrap gap-2">
-                    {languages.map((language) => (
+                    {filters.languages.map((language) => (
                       <Button
                         key={language}
-                        variant={activeFilters.language === language ? "default" : "outline"}
-                        onClick={() => applyFilters("language", language)}
+                        variant={filters.activeFilters.language === language ? "default" : "outline"}
+                        onClick={() => filters.applyFilters("language", language)}
                         className="capitalize"
                       >
                         {language}
@@ -88,11 +80,11 @@ export default function Proyectos() {
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white mb-3">Rol</h4>
                   <div className="flex flex-wrap gap-2">
-                    {roles.map((role) => (
+                    {filters.roles.map((role) => (
                       <Button
                         key={role}
-                        variant={activeFilters.role === role ? "default" : "outline"}
-                        onClick={() => applyFilters("role", role)}
+                        variant={filters.activeFilters.role === role ? "default" : "outline"}
+                        onClick={() => filters.applyFilters("role", role)}
                         className="capitalize"
                       >
                         {role}
@@ -102,7 +94,7 @@ export default function Proyectos() {
                 </div>
               </div>
               <div className="flex justify-end">
-                <Button variant="ghost" onClick={clearFilters}>
+                <Button variant="ghost" onClick={filters.clearFilters}>
                   Limpiar filtros
                 </Button>
               </div>
@@ -112,13 +104,13 @@ export default function Proyectos() {
 
         {/* Lista de proyectos */}
         <div className="grid md:grid-cols-2 gap-8">
-          {filteredProjects.length === 0 ? (
+          {filters.filteredProjects.length === 0 ? (
             <div className="col-span-2 text-center py-10 text-gray-500 dark:text-gray-400">
               No se encontraron proyectos con los filtros seleccionados.
             </div>
           ) : (
-            filteredProjects.map((project, index) => (
-              <ProjectCard key={project.name} project={project} index={index} />
+            filters.filteredProjects.map((project, index) => (
+              <ProjectCard key={project._id} project={project} index={index} />
             ))
           )}
         </div>
