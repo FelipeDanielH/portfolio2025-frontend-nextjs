@@ -21,9 +21,55 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 import { HabilidadesTecnicasHomeSection } from '@/domains/habilidades/components/HabilidadesTecnicasHomeSection'
 import { habilidadesTecnicasHome } from '@/domains/habilidades/data'
 import { ProyectosSection } from '@/domains/proyectos/components/ProyectosSection'
-import { ExperienciaSection } from '@/domains/experiencia/components/ExperienciaSection'
 import { FormacionSection } from '@/domains/formacion/components/FormacionSection'
 import { SobreMiSection } from "@/domains/sobre-mi/components/SobreMiSection";
+import { experienceHomeMock } from "@/domains/experiencia/data";
+
+function ExperienciaHomeSection() {
+  return (
+    <section id="experience" className="py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 gradient-text">Experiencia</h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full" />
+          </div>
+        </ScrollReveal>
+        <div className="relative">
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-indigo-500" />
+          {experienceHomeMock.map((exp, index) => (
+            <ScrollReveal key={index} delay={index * 200}>
+              <div className="relative flex items-start gap-8 mb-12 last:mb-0">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <Building className="w-8 h-8 text-white" />
+                </div>
+                <Card className="flex-1 glass shadow-xl">
+                  <CardHeader>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                      <CardTitle className="text-xl text-gray-900 dark:text-white">{exp.title}</CardTitle>
+                      <div className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+                        <Calendar className="w-4 h-4" />
+                        <span>{exp.period}</span>
+                      </div>
+                    </div>
+                    {exp.company && (
+                      <CardDescription className="text-base font-medium text-gray-700 dark:text-gray-300">
+                        {exp.company}
+                      </CardDescription>
+                    )}
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{exp.description}</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Portfolio() {
   return (
@@ -89,7 +135,7 @@ export default function Portfolio() {
       <main className="relative z-10">
         <SobreMiSection about={"Soy Felipe Henríquez, desarrollador full stack..."} />
         <HabilidadesTecnicasHomeSection data={habilidadesTecnicasHome} />
-        <ExperienciaSection />
+        <ExperienciaHomeSection />
         <ProyectosSection />
         <FormacionSection />
         {/* Contact Section */}
