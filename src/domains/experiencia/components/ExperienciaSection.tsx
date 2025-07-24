@@ -5,10 +5,11 @@ import { Calendar, Building } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { useExperienceContext } from "@/domains/experiencia/hooks/ExperienceContext";
 import { ExperienceCard } from "@/domains/experiencia/components/ExperienceCard";
+import type { Experience } from "@/domains/experiencia/types";
 
 export function ExperienciaSection() {
   const { data: experience, loading, error } = useExperienceContext();
-  const expList = (experience ?? []) as import("@/domains/types").Experience[];
+  const expList = (experience ?? []) as Experience[];
 
   if (loading) return <div className="text-center py-10">Cargando experiencia...</div>;
   if (error) return <div className="text-center py-10 text-red-500">Error al cargar experiencia</div>;
@@ -28,7 +29,7 @@ export function ExperienciaSection() {
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-indigo-500" />
 
           {expList.map((exp, index) => (
-            <ExperienceCard key={index} exp={exp} index={index} />
+            <ExperienceCard key={exp._id} exp={exp} index={index} />
           ))}
         </div>
       </div>

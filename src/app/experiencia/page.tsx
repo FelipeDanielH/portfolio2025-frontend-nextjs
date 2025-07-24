@@ -1,16 +1,30 @@
 "use client"
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ScrollReveal } from "@/components/scroll-reveal"
-import { Building, Calendar, ChevronDown, ChevronRight, MapPin, Users, Target, Award } from "lucide-react"
-import { experienceData } from "@/domains/experiencia/data"
-import { Footer } from "@/components/layout/footer"
+import { useExperienceContext } from "@/domains/experiencia/hooks/ExperienceContext";
 import { useExperienceExpansion } from "@/domains/experiencia/hooks/useExperienceExpansion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { Building, Calendar, ChevronDown, ChevronRight, MapPin, Users, Target, Award } from "lucide-react";
+import { Footer } from "@/components/layout/footer";
+import type { Experience } from "@/domains/experiencia/types";
+
+// Utilidad para formatear fechas 'YYYY-MM' a 'Mes Año' en español
+function formatFecha(fecha?: string) {
+  if (!fecha) return "";
+  const [year, month] = fecha.split("-");
+  const meses = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+  const mesNombre = meses[parseInt(month, 10) - 1] || "";
+  return `${mesNombre} ${year}`;
+}
 
 export default function Experiencia() {
+  const { data: experience, loading, error } = useExperienceContext();
   const { expandedItems, toggleItem } = useExperienceExpansion();
+  const expList = (experience ?? []) as Experience[];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-gray-900 dark:via-blue-950/50 dark:to-black pt-24">
@@ -25,8 +39,14 @@ export default function Experiencia() {
         <div className="relative">
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-indigo-500" />
 
-          {experienceData.map((exp, index) => (
-            <ScrollReveal key={index} delay={index * 200}>
+          {loading && <div className="text-center py-10">Cargando experiencia...</div>}
+          {error && <div className="text-center py-10 text-red-500">Error al cargar experiencia</div>}
+          {!loading && !error && (!expList || expList.length === 0) && (
+            <div className="text-center py-10">Sin experiencia disponible</div>
+          )}
+
+          {!loading && !error && expList && expList.map((exp, index) => (
+            <ScrollReveal key={exp._id} delay={index * 200}>
               <div id={`experiencia-${index}`} className="relative flex items-start gap-8 mb-12 last:mb-0">
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-lg">
                   <Building className="w-8 h-8 text-white" />
@@ -37,36 +57,40 @@ export default function Experiencia() {
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <CardTitle className="text-xl text-gray-900 dark:text-white">{exp.title}</CardTitle>
+                          <CardTitle className="text-xl text-gray-900 dark:text-white">{exp.rol}</CardTitle>
                           {expandedItems.has(index) ? (
                             <ChevronDown className="w-5 h-5 text-gray-500" />
                           ) : (
                             <ChevronRight className="w-5 h-5 text-gray-500" />
                           )}
                         </div>
-                        {exp.company && (
-                          <p className="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">{exp.company}</p>
+                        {exp.empresa && (
+                          <p className="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">{exp.empresa}</p>
                         )}
                         <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
                           <div className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
-                            <span>{exp.period}</span>
+                            <span>{formatFecha(exp.fecha_inicio)}{exp.fecha_fin ? ` - ${formatFecha(exp.fecha_fin)}` : ''}</span>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            <span>{exp.location}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Users className="w-4 h-4" />
-                            <span>{exp.teamSize}</span>
-                          </div>
+                          {exp.ubicacion && (
+                            <div className="flex items-center gap-1">
+                              <MapPin className="w-4 h-4" />
+                              <span>{exp.ubicacion}</span>
+                            </div>
+                          )}
+                          {exp.modalidad && (
+                            <div className="flex items-center gap-1">
+                              <Users className="w-4 h-4" />
+                              <span>{exp.modalidad}</span>
+                            </div>
+                          )}
                         </div>
                       </div>
                       <Badge variant="outline" className="ml-4">
-                        {exp.projectType}
+                        {exp.sector}
                       </Badge>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed mt-3">{exp.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed mt-3">{exp.descripcion}</p>
                   </CardHeader>
 
                   {expandedItems.has(index) && (
@@ -78,7 +102,7 @@ export default function Experiencia() {
                             Responsabilidades Principales
                           </h4>
                           <ul className="space-y-2">
-                            {exp.responsibilities.map((responsibility, idx) => (
+                            {exp.responsabilidades && exp.responsabilidades.map((responsibility, idx) => (
                               <li key={idx} className="flex items-start gap-2 text-gray-600 dark:text-gray-400">
                                 <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
                                 <span className="text-sm leading-relaxed">{responsibility}</span>
@@ -93,7 +117,7 @@ export default function Experiencia() {
                             Logros Destacados
                           </h4>
                           <ul className="space-y-2">
-                            {exp.achievements.map((achievement, idx) => (
+                            {exp.logros && exp.logros.map((achievement, idx) => (
                               <li key={idx} className="flex items-start gap-2 text-gray-600 dark:text-gray-400">
                                 <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0" />
                                 <span className="text-sm leading-relaxed">{achievement}</span>
@@ -105,7 +129,7 @@ export default function Experiencia() {
                         <div>
                           <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Tecnologías Utilizadas</h4>
                           <div className="flex flex-wrap gap-2">
-                            {exp.technologies.map((tech) => (
+                            {exp.tecnologias && exp.tecnologias.map((tech) => (
                               <Badge
                                 key={tech}
                                 variant="secondary"
