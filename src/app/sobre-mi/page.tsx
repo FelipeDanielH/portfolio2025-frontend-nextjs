@@ -30,7 +30,6 @@ export default async function SobreMi() {
   let aboutSections: { id: string; label: string }[] = [];
   try {
     data = await fetchAboutSections();
-    console.log("[SobreMi] Datos obtenidos del endpoint /about:", data);
     if (data && Array.isArray(data)) {
       aboutSections = data
         .sort((a, b) => a.orden - b.orden)
