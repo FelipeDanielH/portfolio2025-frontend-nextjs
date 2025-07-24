@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExternalLink, Github } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { useProjectsContext } from "@/domains/proyectos/hooks/ProjectsContext";
+import { useProjects } from "@/domains/proyectos/hooks/useProjects";
 import { ProjectCard } from "./ProjectCard";
+import type { Project } from "@/domains/proyectos/types";
 
 export function ProyectosSection() {
-  const { data: projects, loading, error } = useProjectsContext();
-  const projectsList = (projects ?? []) as import("@/domains/types").Project[];
+  const { data: projects, loading, error } = useProjects();
+  const projectsList = (projects ?? []) as Project[];
 
   if (loading) return <div className="text-center py-10">Cargando proyectos...</div>;
   if (error) return <div className="text-center py-10 text-red-500">Error al cargar proyectos</div>;
@@ -31,7 +32,7 @@ export function ProyectosSection() {
 
         <div className="grid md:grid-cols-2 gap-8">
           {projectsList.map((project, index) => (
-            <ProjectCard key={project.name} project={project} index={index} />
+            <ProjectCard key={project._id} project={project} index={index} />
           ))}
         </div>
       </div>
