@@ -1,28 +1,21 @@
-import { Experience } from "@/domains/types";
+import { Experience } from "@/domains/experiencia/types";
 
-const experienceData: Experience[] = [
-  {
-    title: "Desarrollador Freelance (WooCommerce)",
-    period: "2025",
-    description: "Implementación de ecommerce para microemprendedoras usando WordPress, WooCommerce, PHP y MySQL.",
-  },
-  {
-    title: "Customer Specialist IT",
-    company: "ETPAY SpA",
-    period: "Jun 2021 - Dic 2021",
-    description:
-      "Resolución de incidencias con AWS CloudWatch, soporte a integraciones mediante APIs REST y coordinación directa con clientes y el equipo de desarrollo.",
-  },
-  {
-    title: "Desarrollador Shopify (Práctica)",
-    company: "Ducklife Media",
-    period: "Oct 2020 - Dic 2020",
-    description:
-      "Modificación de temas y estilos visuales con HTML, CSS y JS en tiendas Shopify. Mejoras en diseño responsive y adaptación visual.",
-  },
-];
+export async function getExperience(): Promise<Experience[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const url = `${baseUrl}/experience`;
 
-export async function getExperience() {
-  await new Promise(res => setTimeout(res, 300));
-  return experienceData;
+  try {
+    const res = await fetch(url, { next: { revalidate: 60 } });
+    if (!res.ok) throw new Error("Error al obtener experiencia");
+    const data = await res.json();
+    // Si la API responde con un array directo:
+    if (Array.isArray(data)) return data as Experience[];
+    // Si la API responde con { data: Experience[] }
+    if (data && Array.isArray(data.data)) return data.data as Experience[];
+    throw new Error("Formato de respuesta inesperado");
+  } catch (error) {
+    // Puedes personalizar el manejo de errores aquí
+    console.error(error);
+    return [];
+  }
 } 
