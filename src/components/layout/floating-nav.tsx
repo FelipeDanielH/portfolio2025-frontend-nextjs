@@ -100,10 +100,16 @@ export function FloatingNav() {
     }
   }
 
-  // Adaptar para usar window.__aboutSections en /sobre-mi
+  // Adaptar para usar window.__aboutSections en /sobre-mi y window.__formacionSections en /formacion
   let displaySections = sections.length > 0 ? sections : getDefaultSections();
-  if (typeof window !== "undefined" && pathname === "/sobre-mi" && window.__aboutSections && window.__aboutSections.length > 0) {
+  if (typeof window !== "undefined") {
+    if (pathname === "/sobre-mi" && window.__aboutSections && window.__aboutSections.length > 0) {
     displaySections = window.__aboutSections;
+    }
+    if (pathname === "/formacion" && window.__formacionSections && window.__formacionSections.length > 0) {
+      // Limitar a solo el título
+      displaySections = window.__formacionSections.map(({ id, label }) => ({ id, label: String(label).split("\n")[0].trim() }));
+    }
   }
 
   return (

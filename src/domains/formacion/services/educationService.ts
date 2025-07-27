@@ -1,53 +1,20 @@
-import { EducationItem } from "@/domains/types";
+import { Education } from "@/domains/formacion/types";
 
-const educationData: EducationItem[] = [
-  {
-    type: "education",
-    title: "Bootcamp Full Stack (540h)",
-    institution: "Generation Chile",
-    year: "2025",
-    date: "2025-01-15",
-    description: "Stack MERN, Spring Boot, despliegue, testing, buenas prácticas.",
-    status: "Completado"
-  },
-  {
-    type: "education",
-    title: "Ingeniería en Informática",
-    institution: "Duoc UC",
-    year: "2021",
-    date: "2021-12-15",
-    description: "(Certificado de título)",
-    status: "Completado"
-  },
-];
+export async function getEducation(): Promise<Education[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const url = `${baseUrl}/education`;
 
-const certificationsData: EducationItem[] = [
-  {
-    type: "certification",
-    title: "React: De cero a experto",
-    institution: "Udemy",
-    year: "2024",
-    date: "2024-11-20",
-    description: "Curso completo de React.js desde fundamentos hasta temas avanzados.",
-    status: "Completado"
-  },
-  {
-    type: "certification",
-    title: "Docker: Guía práctica para desarrolladores",
-    institution: "Udemy",
-    year: "2024",
-    date: "2024-10-15",
-    description: "Containerización y buenas prácticas para entornos productivos.",
-    status: "Completado"
+  try {
+    const res = await fetch(url, { next: { revalidate: 60 } });
+    if (!res.ok) throw new Error("Error al obtener formación");
+    const data = await res.json();
+    // Si la API responde con un array directo:
+    if (Array.isArray(data)) return data as Education[];
+    // Si la API responde con { data: Education[] }
+    if (data && Array.isArray(data.data)) return data.data as Education[];
+    throw new Error("Formato de respuesta inesperado");
+  } catch (error) {
+    console.error(error);
+    return [];
   }
-];
-
-export async function getEducation() {
-  await new Promise(res => setTimeout(res, 300));
-  return educationData;
-}
-
-export async function getCertifications() {
-  await new Promise(res => setTimeout(res, 300));
-  return certificationsData;
 } 

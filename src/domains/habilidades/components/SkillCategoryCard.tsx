@@ -6,7 +6,7 @@ import { getSkillCategoryLabel } from "@/domains/utils";
 export function SkillCategoryCard({ category, skillList, index }: { category: string; skillList: string[]; index: number }) {
   return (
     <ScrollReveal key={category} delay={index * 100}>
-      <Card className="glass shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+      <Card className="glass shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-700 dark:border-white">
         <CardHeader className="pb-4">
           <CardTitle className="text-lg capitalize text-gray-900 dark:text-white">
             {getSkillCategoryLabel(category)}

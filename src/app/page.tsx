@@ -1,77 +1,39 @@
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Mail,
   Phone,
   MapPin,
   Linkedin,
-  ExternalLink,
-  Github,
-  Calendar,
-  Building,
-  GraduationCap,
   Code,
-  Award,
   Download,
   ChevronDown,
-  Sparkles,
 } from "lucide-react"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { HabilidadesTecnicasHomeSection } from '@/domains/habilidades/components/HabilidadesTecnicasHomeSection'
-import { habilidadesTecnicasHome } from '@/domains/habilidades/data'
-import { ProyectosSection } from '@/domains/proyectos/components/ProyectosSection'
-import { FormacionSection } from '@/domains/formacion/components/FormacionSection'
+import { ProyectosHomeSection } from '@/domains/proyectos/components/ProyectosHomeSection'
+import { FormacionHomeSection } from '@/domains/formacion/components/FormacionHomeSection'
 import { SobreMiSection } from "@/domains/sobre-mi/components/SobreMiSection";
-import { experienceHomeMock } from "@/domains/experiencia/data";
+import { ExperienciaHomeSection } from "@/domains/experiencia/components/ExperienciaHomeSection";
+import { createGetHomeDataUseCase } from "@/domains/home/useCases/GetHomeDataUseCase";
+import type { HomeDataUseCaseResponse } from "@/domains/home/useCases/GetHomeDataUseCase";
 
-function ExperienciaHomeSection() {
-  return (
-    <section id="experience" className="py-20 px-6">
-      <div className="max-w-4xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 gradient-text">Experiencia</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full" />
-          </div>
-        </ScrollReveal>
-        <div className="relative">
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-indigo-500" />
-          {experienceHomeMock.map((exp, index) => (
-            <ScrollReveal key={index} delay={index * 200}>
-              <div className="relative flex items-start gap-8 mb-12 last:mb-0">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <Building className="w-8 h-8 text-white" />
-                </div>
-                <Card className="flex-1 glass shadow-xl">
-                  <CardHeader>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                      <CardTitle className="text-xl text-gray-900 dark:text-white">{exp.title}</CardTitle>
-                      <div className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
-                        <Calendar className="w-4 h-4" />
-                        <span>{exp.period}</span>
-                      </div>
-                    </div>
-                    {exp.company && (
-                      <CardDescription className="text-base font-medium text-gray-700 dark:text-gray-300">
-                        {exp.company}
-                      </CardDescription>
-                    )}
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{exp.description}</p>
-                  </CardContent>
-                </Card>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+// Función simplificada para obtener datos de Home usando el use case
+async function getHomeData(): Promise<HomeDataUseCaseResponse> {
+  try {
+    const getHomeDataUseCase = createGetHomeDataUseCase();
+    return await getHomeDataUseCase.execute();
+  } catch (error) {
+    console.error('Error al obtener datos de Home:', error);
+    throw error;
+  }
 }
 
-export default function Portfolio() {
+
+
+export default async function Portfolio() {
+  // Obtener datos de la API
+  const homeData = await getHomeData();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-gray-900 dark:via-blue-950/50 dark:to-black">
       {/* Hero Section */}
@@ -91,38 +53,40 @@ export default function Portfolio() {
           </div>
 
           <h1 className="text-6xl md:text-8xl font-bold mb-6">
-            <span className="gradient-text">Felipe</span>
+            <span className="gradient-text">{homeData.hero.nombre}</span>
             <br />
             <span className="text-gray-900 dark:text-white">Henríquez</span>
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4 font-light">
-            Desarrollador Full Stack
+            {homeData.hero.titulo}
           </p>
 
           <p className="text-lg text-gray-500 dark:text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Creando experiencias digitales excepcionales con React, Node.js y Spring Boot
+            {homeData.hero.claim}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full">
               <Mail className="w-5 h-5 mr-2" />
-              Contactar
+              {homeData.hero.boton_contacto}
             </Button>
-            <Button variant="outline" size="lg" className="px-8 py-3 rounded-full glass bg-transparent">
-              <Download className="w-5 h-5 mr-2" />
-              Descargar CV
+            <Button variant="outline" size="lg" className="px-8 py-3 rounded-full glass bg-transparent" asChild>
+              <a href={homeData.hero.cv} target="_blank" rel="noopener noreferrer">
+                <Download className="w-5 h-5 mr-2" />
+                Descargar CV
+              </a>
             </Button>
           </div>
 
           <div className="flex justify-center gap-6 text-gray-600 dark:text-gray-400">
             <div className="flex items-center gap-2 glass px-4 py-2 rounded-full">
               <Phone className="w-4 h-4" />
-              <span className="text-sm">+56 9 8469 2943</span>
+              <span className="text-sm">{homeData.hero.telefono}</span>
             </div>
             <div className="flex items-center gap-2 glass px-4 py-2 rounded-full">
               <MapPin className="w-4 h-4" />
-              <span className="text-sm">Santiago, Chile</span>
+              <span className="text-sm">{homeData.hero.ubicacion}</span>
             </div>
           </div>
         </div>
@@ -133,29 +97,34 @@ export default function Portfolio() {
       </section>
 
       <main className="relative z-10">
-        <SobreMiSection about={"Soy Felipe Henríquez, desarrollador full stack..."} />
-        <HabilidadesTecnicasHomeSection data={habilidadesTecnicasHome} />
-        <ExperienciaHomeSection />
-        <ProyectosSection />
-        <FormacionSection />
+        <SobreMiSection about={homeData.about.about} />
+        <HabilidadesTecnicasHomeSection skillIds={homeData.skills.skills} />
+        <ExperienciaHomeSection experience={homeData.experience.experience} />
+        <ProyectosHomeSection />
+        <FormacionHomeSection />
         {/* Contact Section */}
         <section className="py-20 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal>
-              <h2 className="text-4xl font-bold mb-6"> 1Listo para trabajar juntos?</h2>
-              <p className="text-xl mb-8 text-blue-100">Estoy disponible para nuevos proyectos y oportunidades</p>
+              <h2 className="text-4xl font-bold mb-6">{homeData.callToAction.titulo}</h2>
+              <p className="text-xl mb-8 text-blue-100">{homeData.callToAction.subtitulo}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" className="px-8 py-3 rounded-full">
-                  <Mail className="w-5 h-5 mr-2" />
-                  felipe.daniel.henriquez@gmail.com
+                <Button size="lg" variant="secondary" className="px-8 py-3 rounded-full" asChild>
+                  <a href={`mailto:${homeData.contact.email}`}>
+                    <Mail className="w-5 h-5 mr-2" />
+                    {homeData.contact.email}
+                  </a>
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   className="px-8 py-3 rounded-full border-white text-white hover:bg-white hover:text-blue-600 bg-transparent"
+                  asChild
                 >
-                  <Linkedin className="w-5 h-5 mr-2" />
-                  LinkedIn
+                  <a href={homeData.contact.linkedin} target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="w-5 h-5 mr-2" />
+                    LinkedIn
+                  </a>
                 </Button>
               </div>
             </ScrollReveal>

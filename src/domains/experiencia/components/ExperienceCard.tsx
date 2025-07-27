@@ -10,7 +10,7 @@ export function ExperienceCard({ exp, index }: { exp: Experience; index: number 
         <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-lg">
           <Building className="w-8 h-8 text-white" />
         </div>
-        <Card className="flex-1 glass shadow-xl">
+        <Card className="flex-1 glass shadow-xl border border-white dark:border-gray-700">
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <CardTitle className="text-xl text-gray-900 dark:text-white">{exp.rol}</CardTitle>

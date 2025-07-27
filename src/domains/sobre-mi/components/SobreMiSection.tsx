@@ -14,7 +14,7 @@ export function SobreMiSection({ about }: { about: string }) {
         </ScrollReveal>
 
         <ScrollReveal delay={200}>
-          <Card className="glass shadow-2xl">
+          <Card className="glass shadow-2xl border border-white dark:border-gray-700">
             <CardContent className="p-8">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0">

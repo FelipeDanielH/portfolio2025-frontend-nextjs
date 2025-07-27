@@ -22,7 +22,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
   return (
     <ScrollReveal key={index} delay={index * 150}>
-      <Card className="glass shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
+      <Card className="glass shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group border border-white dark:border-gray-700">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">

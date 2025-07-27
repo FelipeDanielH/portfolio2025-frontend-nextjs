@@ -52,7 +52,7 @@ export default function Experiencia() {
                   <Building className="w-8 h-8 text-white" />
                 </div>
 
-                <Card className="flex-1 glass shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Card className="flex-1 glass shadow-xl hover:shadow-2xl transition-all duration-300 border border-white dark:border-gray-700">
                   <CardHeader className="cursor-pointer" onClick={() => toggleItem(index)}>
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -73,16 +73,16 @@ export default function Experiencia() {
                             <span>{formatFecha(exp.fecha_inicio)}{exp.fecha_fin ? ` - ${formatFecha(exp.fecha_fin)}` : ''}</span>
                           </div>
                           {exp.ubicacion && (
-                            <div className="flex items-center gap-1">
-                              <MapPin className="w-4 h-4" />
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-4 h-4" />
                               <span>{exp.ubicacion}</span>
-                            </div>
+                          </div>
                           )}
                           {exp.modalidad && (
-                            <div className="flex items-center gap-1">
-                              <Users className="w-4 h-4" />
+                          <div className="flex items-center gap-1">
+                            <Users className="w-4 h-4" />
                               <span>{exp.modalidad}</span>
-                            </div>
+                          </div>
                           )}
                         </div>
                       </div>

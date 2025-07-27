@@ -99,7 +99,7 @@ export default function HabilidadesClient({ skills, categories }: HabilidadesCli
           <section id={skill._id} key={skill._id} className="scroll-mt-24">
             <ScrollReveal delay={index * 100}>
               <Card
-                className="glass shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="glass shadow-xl hover:shadow-2xl transition-all duration-300 border border-white dark:border-gray-700"
                 data-skill={skill._id}
               >
                 <CardHeader className="cursor-pointer" onClick={() => toggleSkill(skill._id)}>

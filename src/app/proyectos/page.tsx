@@ -38,7 +38,7 @@ export default function Proyectos() {
 
         {/* Filtros */}
         <ScrollReveal delay={200}>
-          <Card className="glass shadow-xl mb-12">
+          <Card className="glass shadow-xl mb-12 border border-white dark:border-gray-700">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Filter className="w-5 h-5" />

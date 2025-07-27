@@ -3,18 +3,6 @@ export interface NavSection {
   label: string
 }
 
-export interface Skill {
-  name: string
-  rating: number
-  category: string
-  concepts: Concept[]
-}
-
-export interface Concept {
-  name: string
-  learned: boolean
-}
-
 export interface ExperienceDetail {
   title: string
   company?: string

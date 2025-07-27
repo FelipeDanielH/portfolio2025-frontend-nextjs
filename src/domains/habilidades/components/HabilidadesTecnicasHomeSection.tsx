@@ -1,13 +1,16 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { createGetSkillsCategoriesUseCase } from "@/domains/habilidades/useCases/GetSkillsCategoriesUseCase";
 
-interface CategoriaHabilidad {
-  categoria: string;
-  skills: string[];
+interface HabilidadesTecnicasHomeSectionProps {
+  skillIds?: string[];
 }
 
-export function HabilidadesTecnicasHomeSection({ data }: { data: CategoriaHabilidad[] }) {
+export async function HabilidadesTecnicasHomeSection({ skillIds }: HabilidadesTecnicasHomeSectionProps) {
+  // Obtener datos usando el use case
+  const getSkillsCategoriesUseCase = createGetSkillsCategoriesUseCase();
+  const { skillsCategories } = await getSkillsCategoriesUseCase.execute(skillIds);
   return (
     <section
       id="skills"
@@ -22,17 +25,25 @@ export function HabilidadesTecnicasHomeSection({ data }: { data: CategoriaHabili
         </ScrollReveal>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data.map((cat, index) => (
-            <ScrollReveal key={cat.categoria} delay={index * 100}>
-              <Card className="glass border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+          {Object.entries(skillsCategories).map(([category, skillList], index) => (
+            <ScrollReveal key={category} delay={index * 100}>
+              <Card className="glass shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white dark:border-gray-700">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-lg capitalize text-gray-900 dark:text-white">{cat.categoria}</CardTitle>
+                  <CardTitle className="text-lg capitalize text-gray-900 dark:text-white">
+                    {category === "others"
+                      ? "Otros"
+                      : category === "languages"
+                        ? "Lenguajes"
+                        : category === "databases"
+                          ? "Bases de Datos"
+                          : category}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {cat.skills.map((skill) => (
+                    {(skillList as string[]).map((skill: string, skillIndex: number) => (
                       <Badge
-                        key={skill}
+                        key={`${category}-${skill}-${skillIndex}`}
                         variant="secondary"
                         className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors"
                       >

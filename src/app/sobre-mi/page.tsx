@@ -67,7 +67,7 @@ export default async function SobreMi() {
             .sort((a, b) => a.orden - b.orden)
             .map((section, idx) => (
               <ScrollReveal key={section._id} delay={200 * idx}>
-                <Card className="glass shadow-2xl" id={`about-section-${section._id}`}>
+                <Card className="glass shadow-2xl border border-white dark:border-gray-700" id={`about-section-${section._id}`}>
                   <CardHeader>
                     <h2 className="flex items-center gap-3 text-2xl">
                       <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${COLORS[idx % COLORS.length]} flex items-center justify-center`}>
