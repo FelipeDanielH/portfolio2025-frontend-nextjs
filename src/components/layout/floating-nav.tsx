@@ -114,8 +114,8 @@ export function FloatingNav() {
 
   return (
     <nav className="fixed top-6 right-6 z-50">
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-2 bg-white/20 dark:bg-black/20 backdrop-blur-md rounded-full p-2 border border-white/20 dark:border-white/10 shadow-lg">
+      <div className="flex flex-col gap-3 items-end">
+        <div className="flex items-center gap-2 bg-white/20 dark:bg-black/20 backdrop-blur-md rounded-full p-2 border border-white/20 dark:border-white/10 shadow-lg w-fit">
           <ThemeToggle />
           <div className="w-px h-6 bg-white/20 dark:bg-white/10" />
           <FontSizeControl />
@@ -127,7 +127,7 @@ export function FloatingNav() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
             }`}
           >
-            <div className="bg-white/20 dark:bg-black/20 backdrop-blur-md rounded-2xl p-3 border border-white/20 dark:border-white/10 shadow-lg max-w-xs">
+            <div className="bg-white/20 dark:bg-black/20 backdrop-blur-md rounded-2xl p-3 border border-white/20 dark:border-white/10 shadow-lg w-auto max-w-xs">
               <ScrollArea className="max-h-80">
                 <div className="flex flex-col gap-1 pr-3">
                   {displaySections.map((section) => (
@@ -136,10 +136,10 @@ export function FloatingNav() {
                       onClick={() => scrollToElement(section.id)}
                       variant="ghost"
                       size="sm"
-                      className="justify-start text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/20 dark:hover:bg-white/10 transition-colors duration-300 px-3 py-2 h-auto text-left"
+                      className="justify-start text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/20 dark:hover:bg-white/10 transition-colors duration-300 px-3 py-2 h-auto text-left w-full min-w-0"
                     >
                       <div className="w-2 h-2 rounded-full bg-blue-400 dark:bg-blue-500 mr-2 flex-shrink-0" />
-                      <span className="truncate">{section.label}</span>
+                      <span className="truncate flex-1 min-w-0">{section.label}</span>
                     </Button>
                   ))}
                 </div>
