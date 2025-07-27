@@ -5,17 +5,15 @@ import "@/styles/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/layout/navbar"
 import { FloatingNav } from "@/components/layout/floating-nav"
-import { BackToTop } from "@/components/ui/back-to-top"
-import { AppProviders } from "@/hooks/AppProviders"
+import { BackToTop } from "@/components/back-to-top"
+import { BackendHealthCheck } from "@/domains/shared/components/BackendHealthCheck"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Felipe Henríquez - Full Stack Developer",
-  description:
-    "Portafolio profesional de Felipe Henríquez, desarrollador full stack especializado en React, Node.js y Spring Boot.",
-    generator: 'v0.dev'
-}
+  description: "Portfolio personal de Felipe Henríquez, desarrollador Full Stack especializado en React, Node.js y tecnologías modernas.",
+};
 
 export default function RootLayout({
   children,
@@ -25,15 +23,20 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
-        <AppProviders>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={false}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <BackendHealthCheck>
             <Navbar />
             <FloatingNav />
             <BackToTop />
             {children}
-          </ThemeProvider>
-        </AppProviders>
+          </BackendHealthCheck>
+        </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
