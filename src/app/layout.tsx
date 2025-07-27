@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/layout/navbar"
 import { FloatingNav } from "@/components/layout/floating-nav"
 import { BackToTop } from "@/components/back-to-top"
-import { BackendHealthCheck } from "@/domains/shared/components/BackendHealthCheck"
+import { BackendHealthCheck } from "@/domains/shared"
 
 const inter = Inter({ subsets: ["latin"] })
 

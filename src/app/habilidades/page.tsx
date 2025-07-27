@@ -10,7 +10,7 @@ export default async function Habilidades() {
   
   return (
     <PageLayout>
-      <HabilidadesClient skills={skills} categories={categories} />
+        <HabilidadesClient skills={skills} categories={categories} />
     </PageLayout>
   );
 }

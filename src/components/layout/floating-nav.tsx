@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
-import { ThemeToggle } from "../ui/theme-toggle"
+import { ThemeToggle } from "@/domains/shared"
 import { FontSizeControl } from "../ui/font-size-control"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"

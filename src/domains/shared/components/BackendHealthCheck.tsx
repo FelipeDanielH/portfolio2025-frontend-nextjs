@@ -21,7 +21,6 @@ export function BackendHealthCheck({ children }: BackendHealthCheckProps) {
 
   const healthService = new BackendHealthService();
   const hasStartedAnimation = useRef(false);
-  const pageLoadTimeout = useRef<NodeJS.Timeout | null>(null);
   const animationTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Función para iniciar la animación de salida
@@ -46,103 +45,90 @@ export function BackendHealthCheck({ children }: BackendHealthCheckProps) {
     }, 600);
   };
 
-      // Efecto para detectar cuando la página está completamente cargada
+  // Efecto principal para manejar la carga de página y health check
   useEffect(() => {
+    let healthCheckTimeout: NodeJS.Timeout;
+    let pageLoadTimeout: NodeJS.Timeout;
+
+    const performHealthCheck = async () => {
+      if (hasStartedAnimation.current) return;
+
+      try {
+        const result = await healthService.checkHealth(healthState.attempts);
+        
+        if (result.isReady && !hasStartedAnimation.current) {
+          startExitAnimation();
+          return;
+        }
+
+        if (result.shouldRetry) {
+          setHealthState(prev => ({
+            ...prev,
+            error: result.error,
+            attempts: prev.attempts + 1
+          }));
+
+          healthCheckTimeout = setTimeout(() => {
+            setHealthState(prev => ({
+              ...prev,
+              isChecking: true,
+              error: null
+            }));
+            performHealthCheck();
+          }, 3000);
+        } else {
+          setHealthState(prev => ({
+            ...prev,
+            error: result.error,
+            isChecking: false
+          }));
+        }
+      } catch (error) {
+        console.error('Error en health check:', error);
+      }
+    };
+
+    // Función para manejar la carga de página
     const handlePageLoad = () => {
-      startExitAnimation();
-    };
-
-    const handleDOMContentLoaded = () => {
-      // Dar un tiempo adicional para que se carguen recursos
-      pageLoadTimeout.current = setTimeout(() => {
-        startExitAnimation();
-      }, 2000);
-    };
-
-    // Verificar estado actual del documento
-    if (document.readyState === 'complete') {
-      startExitAnimation();
-    } else if (document.readyState === 'interactive') {
-      window.addEventListener('load', handlePageLoad);
-    } else {
-      document.addEventListener('DOMContentLoaded', handleDOMContentLoaded);
-      window.addEventListener('load', handlePageLoad);
-    }
-
-    // Timeout de seguridad por si algo falla
-    const safetyTimeout = setTimeout(() => {
-      startExitAnimation();
-    }, 3000); // 3 segundos máximo
-
-    return () => {
-      window.removeEventListener('load', handlePageLoad);
-      document.removeEventListener('DOMContentLoaded', handleDOMContentLoaded);
-      if (pageLoadTimeout.current) {
-        clearTimeout(pageLoadTimeout.current);
-      }
-      if (animationTimeout.current) {
-        clearTimeout(animationTimeout.current);
-      }
-      clearTimeout(safetyTimeout);
-    };
-  }, []);
-
-  // Efecto adicional para garantizar que la animación se ejecute
-  useEffect(() => {
-    const guaranteedAnimation = setTimeout(() => {
       if (!hasStartedAnimation.current) {
         startExitAnimation();
       }
-    }, 2000);
-
-    return () => {
-      clearTimeout(guaranteedAnimation);
     };
-  }, []);
 
-  // Efecto para health check (opcional, ya que la animación se ejecuta por carga de página)
-  useEffect(() => {
-    if (hasStartedAnimation.current) return;
+    // Verificar si la página ya está cargada
+    if (document.readyState === 'complete') {
+      // Si la página ya está cargada, dar un pequeño delay y luego iniciar animación
+      pageLoadTimeout = setTimeout(() => {
+        if (!hasStartedAnimation.current) {
+          startExitAnimation();
+        }
+      }, 1000);
+    } else {
+      // Si la página no está cargada, esperar al evento load
+      window.addEventListener('load', handlePageLoad);
+    }
 
-    let timeoutId: NodeJS.Timeout;
+    // Iniciar health check después de un delay inicial
+    const initialHealthCheck = setTimeout(() => {
+      if (!hasStartedAnimation.current) {
+        performHealthCheck();
+      }
+    }, 500);
 
-    const checkHealth = async () => {
-      const result = await healthService.checkHealth(healthState.attempts);
-      
-      if (result.isReady && !hasStartedAnimation.current) {
+    // Timeout de seguridad
+    const safetyTimeout = setTimeout(() => {
+      if (!hasStartedAnimation.current) {
         startExitAnimation();
-        return;
       }
-
-      if (result.shouldRetry) {
-        setHealthState(prev => ({
-          ...prev,
-          error: result.error,
-          attempts: prev.attempts + 1
-        }));
-
-        timeoutId = setTimeout(() => {
-          setHealthState(prev => ({
-            ...prev,
-            isChecking: true,
-            error: null
-          }));
-        }, 3000);
-      } else {
-        setHealthState(prev => ({
-          ...prev,
-          error: result.error,
-          isChecking: false
-        }));
-      }
-    };
-
-    checkHealth();
+    }, 5000);
 
     return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      window.removeEventListener('load', handlePageLoad);
+      if (healthCheckTimeout) clearTimeout(healthCheckTimeout);
+      if (pageLoadTimeout) clearTimeout(pageLoadTimeout);
+      if (animationTimeout.current) clearTimeout(animationTimeout.current);
+      clearTimeout(initialHealthCheck);
+      clearTimeout(safetyTimeout);
     };
   }, [healthState.attempts]);
 
